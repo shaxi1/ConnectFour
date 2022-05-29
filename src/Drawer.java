@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 
-public class Drawer extends JPanel /* implements MouseListener*/ {
+public class Drawer extends JPanel implements MouseListener {
     int startX = 10;
     int startY = 10;
     String cellColor = "";
@@ -19,7 +19,7 @@ public class Drawer extends JPanel /* implements MouseListener*/ {
     public Drawer(Dimension dimension) {
         setSize(dimension);
         setPreferredSize(dimension);
-        //addMouseListener(this);
+        addMouseListener(this);
 
         clearFields();
     }
@@ -68,4 +68,69 @@ public class Drawer extends JPanel /* implements MouseListener*/ {
                 grid[row][col] = Color.white;
     }
 
+    @Override
+    public void mousePressed(MouseEvent e)
+    {
+        int x = e.getX(); //pobranie pozycji kursora
+        int y = e.getY();
+        if(Board.winner==false){
+            if(x<(CELL_SIZE*grid[0].length) && y<(CELL_SIZE*grid.length)){
+                int clickedRow = y/CELL_SIZE;
+                int clickedCol = x/CELL_SIZE;
+
+                clickedRow = dropP(clickedCol); //sprawdzanie na jekiej wysokosci dac kolor
+
+                if(clickedRow!=-1){
+
+                    if(Board.turn%2==0){
+                        grid[clickedRow][clickedCol]= Color.red; //ustawianie koloru
+                        cellColor = "RED";
+                    } else{
+                        grid[clickedRow][clickedCol]= Color.yellow;
+                        cellColor = "Yellow";
+                    }
+                    Board.turn++;
+//                    if(checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])){
+//                        Board.winner=true;
+
+                    }
+                }
+            }
+        repaint();
+    }
+
+    public int dropP(int cc){
+        int cr = grid.length-1;
+
+        while(cr>=0){
+
+            if(grid[cr][cc].equals(Color.white)){
+                return cr;
+            }
+            cr--;
+        }
+
+        return -1;
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

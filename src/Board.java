@@ -31,8 +31,4 @@ public class Board {
         frame.setVisible(true);
     }
 
-
-
-
-
 }
