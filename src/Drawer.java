@@ -89,16 +89,176 @@ public class Drawer extends JPanel implements MouseListener {
                         grid[clickedRow][clickedCol]= Color.yellow;
                         cellColor = "Yellow";
                     }
+                    if(Board.turn%2==0) {
+                        if (checkForWinner(clickedCol, clickedRow, Color.red)) {
+                            Board.winner = true;
+                        }
+                    }
+                    else {
+                        if (checkForWinner(clickedCol, clickedRow, Color.yellow)) {
+                            Board.winner = true;
+                        }
+                    }
                     Board.turn++;
 //                    if(checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])){
 //                        Board.winner=true;
+
 
                     }
                 }
             }
         repaint();
     }
+    public boolean  checkForWinner(int cc,int cr, Color c){
+        int xStart = cc;
+        int count = 1;
+        //sprawdzenie w lewo
+        xStart--;
+        while(xStart>=0){
+            if(grid[cr][xStart].equals(c)){
+                count++;
+            }else{
+                break;
+            }
+            if(count==4)
+                return true;
 
+            xStart--;
+        }
+
+        //sprawdzenie w prawo
+        count = 1;
+        xStart = cc;
+        xStart++;
+        while(xStart<grid[0].length){
+
+            if(grid[cr][xStart].equals(c)){
+
+                count++;
+            }else{
+                break;
+            }
+            if(count==4)
+                return true;
+
+            xStart++;
+        }
+        //sprawdzenie w gore
+        count = 1;
+        int yStart = cr;
+        yStart--;
+        while(yStart>0){
+            if(grid[yStart][cc].equals(c)){
+                count++;
+            }else{
+                break;
+            }
+            if(count==4)
+                return true;
+
+            yStart--;
+        }
+
+        //sprawdzenie w dol
+        count = 1;
+        yStart = cr;
+        yStart++;
+        while(yStart<grid.length){
+
+            if(grid[yStart][cc].equals(c)){
+
+                count++;
+            }else{
+                break;
+            }
+            if(count==4)
+                return true;
+
+            yStart++;
+        }
+
+        //sprawdzenie lewej gory
+        count = 1;
+        yStart = cr;
+        xStart = cc;
+        xStart--;
+        yStart--;
+        while(yStart>0 && xStart>0){
+            if(grid[yStart][xStart].equals(c)){
+                count++;
+            }else{
+                break;
+            }
+            if(count==4)
+                return true;
+
+            yStart--;
+            xStart--;
+        }
+
+        //sprawdzenie prawego dolu
+        count = 1;
+        yStart = cr;
+        yStart++;
+        xStart = cc;
+        xStart++;
+        while(yStart<grid.length && xStart<grid.length){
+
+            if(grid[yStart][xStart].equals(c)){
+
+                count++;
+            }else{
+                break;
+            }
+            if(count==4)
+                return true;
+
+            yStart++;
+            xStart++;
+        }
+
+        //sprawdzenie lewego dolu
+        count = 1;
+        yStart = cr;
+        xStart = cc;
+        xStart--;
+        yStart++;
+        while(yStart<grid.length && xStart>0){
+            if(grid[yStart][xStart].equals(c)){
+                count++;
+            }else{
+                break;
+            }
+            if(count==4)
+                return true;
+
+            yStart++;
+            xStart--;
+        }
+
+        //sprawdzenie prawej gory
+        count = 1;
+        yStart = cr;
+        yStart--;
+        xStart = cc;
+        xStart++;
+        while(yStart>0 && xStart<grid.length){
+
+            if(grid[yStart][xStart].equals(c)){
+
+                count++;
+            }else{
+                break;
+            }
+            if(count==4)
+                return true;
+
+            yStart--;
+            xStart++;
+        }
+
+        return false;
+    }
     public int dropP(int cc){
         int cr = grid.length-1;
 
