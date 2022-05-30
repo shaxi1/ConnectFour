@@ -20,7 +20,7 @@ public class Board {
 
     public void drawBoard() {
         frame = new JFrame("mainBoard");
-        frame.setSize(600, 400);
+        frame.setSize(750, 600);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
         // dodaj komponenty do ramki
@@ -29,6 +29,7 @@ public class Board {
         frame.pack();
         // pokaz ramke
         frame.setVisible(true);
+        frame.setResizable(false);
     }
 
 

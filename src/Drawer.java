@@ -10,7 +10,7 @@ public class Drawer extends JPanel implements MouseListener {
     int startX = 10;
     int startY = 10;
     String cellColor = "";
-    final int CELL_SIZE = 60;
+    final int CELL_SIZE = 80;
 
     final int ROWS = 6;
     final int COLUMNS = 7;
@@ -41,9 +41,9 @@ public class Drawer extends JPanel implements MouseListener {
             for (int col = 0; col < grid[0].length; col++) {
 
                 graphics2D.setColor(colors[col]);
-                graphics2D.fillOval(startX, startY, CELL_SIZE, CELL_SIZE);
+                graphics2D.fillOval(startX, startY, CELL_SIZE-10, CELL_SIZE-10);
                 graphics2D.setColor(Color.black);
-                graphics2D.drawRect(startX, startY, CELL_SIZE, CELL_SIZE);
+                //graphics2D.drawRect(startX, startY, CELL_SIZE, CELL_SIZE);
                 startX += CELL_SIZE;
             }
             startY += CELL_SIZE;
@@ -52,12 +52,26 @@ public class Drawer extends JPanel implements MouseListener {
 
         graphics2D.setColor(new Color(255, 255, 255));
         if(!Board.winner)
+            if(Board.turn%2 == 0) {
+                graphics2D.setColor(Color.red);
+                graphics2D.setFont(new Font("default", Font.BOLD, 16));
+                graphics2D.drawString("Red's Turn", 600, 20);
+            }
+            else {
+                graphics2D.setColor(Color.yellow);
+                graphics2D.setFont(new Font("default", Font.BOLD, 16));
+                graphics2D.drawString("Yellow's Turn", 600, 20);
+            }
+        else {
+            graphics2D.setColor(Color.green);
+            graphics2D.setFont(new Font("default", Font.BOLD, 16));
+            graphics2D.drawString("WINNER - ", 600, 20);
             if(Board.turn%2 == 0)
-                graphics2D.drawString("Red's Turn",450,20);
+                graphics2D.setColor(Color.yellow);
             else
-                graphics2D.drawString("Yellow's Turn", 450, 20);
-        else
-            graphics2D.drawString("WINNER - "+ cellColor, 450, 20);
+                graphics2D.setColor(Color.red);
+            graphics2D.drawString(cellColor, 680, 20);
+        }
 
     }
 
