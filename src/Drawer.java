@@ -134,8 +134,12 @@ public class Drawer extends JPanel implements MouseListener {
             }else{
                 break;
             }
-            if(count==4)
+            if(count==4) {
+//                for(int i = count;i > 0;i--) {
+//                    grid[cr][xStart+i-1] = Color.black;
+//                }
                 return true;
+            }
 
             xStart--;
         }
