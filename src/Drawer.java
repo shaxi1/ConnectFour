@@ -56,15 +56,7 @@ public class Drawer extends JPanel implements MouseListener {
         final int TURN_STRING_FONTSIZE = 16;
         graphics2D.setColor(new Color(255, 255, 255));
 
-        final int LEADERBOARD_STRING_OFFSETY_YELLOW = 60;
-        final int LEADERBOARD_STRING_OFFSETY_RED = LEADERBOARD_STRING_OFFSETY_YELLOW + 20;
-        Graphics2D leaderBoard = (Graphics2D)graphics;
-        leaderBoard.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        leaderBoard.setColor(new Color(255, 255, 255));
-        leaderBoard.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
-        leaderBoard.drawString("Yellow wins: " + Board.yellowWins, TURN_STRING_OFFSETX, LEADERBOARD_STRING_OFFSETY_YELLOW);
-        leaderBoard.drawString("Red wins: " + Board.redWins, TURN_STRING_OFFSETX, LEADERBOARD_STRING_OFFSETY_RED);
+        printLeaderBoard((Graphics2D) graphics, TURN_STRING_OFFSETX, TURN_STRING_FONTSIZE);
 
         if(!Board.winner)
             if(Board.turn%2 == 0) {
@@ -88,6 +80,19 @@ public class Drawer extends JPanel implements MouseListener {
             graphics2D.drawString(cellColor, PLAYERNAME_STRING_OFFSETX, TURN_STRING_OFFSETY);
         }
 
+    }
+
+    private void printLeaderBoard(Graphics2D graphics, int TURN_STRING_OFFSETX, int TURN_STRING_FONTSIZE) {
+        final int LEADERBOARD_STRING_OFFSETY_YELLOW = 60;
+        final int LEADERBOARD_STRING_OFFSETY_RED = LEADERBOARD_STRING_OFFSETY_YELLOW + 20;
+
+        Graphics2D leaderBoard = graphics;
+        leaderBoard.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        leaderBoard.setColor(new Color(255, 255, 255));
+        leaderBoard.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
+        leaderBoard.drawString("Yellow wins: " + Board.yellowWins, TURN_STRING_OFFSETX, LEADERBOARD_STRING_OFFSETY_YELLOW);
+        leaderBoard.drawString("Red wins: " + Board.redWins, TURN_STRING_OFFSETX, LEADERBOARD_STRING_OFFSETY_RED);
     }
 
 
