@@ -1,9 +1,6 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 
 public class Drawer extends JPanel implements MouseListener {
@@ -12,9 +9,9 @@ public class Drawer extends JPanel implements MouseListener {
     String cellColor = "";
     final int CELL_SIZE = 80;
 
-    final int ROWS = 6;
-    final int COLUMNS = 7;
-    Color[][] grid = new Color[ROWS][COLUMNS];
+    static final int ROWS = 6;
+    static final int COLUMNS = 7;
+    static Color[][] grid = new Color[ROWS][COLUMNS];
 
     public Drawer(Dimension dimension) {
         setSize(dimension);
@@ -78,6 +75,11 @@ public class Drawer extends JPanel implements MouseListener {
             else
                 graphics2D.setColor(Color.red);
             graphics2D.drawString(cellColor, PLAYERNAME_STRING_OFFSETX, TURN_STRING_OFFSETY);
+
+            final int GAMEEND_STRING_OFFSETX = 180;
+            final int GAMEEND_STRING_OFFSETY = 540;
+            graphics2D.setColor(Color.green);
+            graphics2D.drawString("Press Arrow UP to restart and start playing!", GAMEEND_STRING_OFFSETX, GAMEEND_STRING_OFFSETY);
         }
 
     }
@@ -96,7 +98,7 @@ public class Drawer extends JPanel implements MouseListener {
     }
 
 
-    private void clearFields() {
+    private static void clearFields() {
         for (int row = 0; row < grid.length; row++)
             for (int col = 0; col < grid[0].length; col++)
                 grid[row][col] = Color.white;
@@ -127,14 +129,14 @@ public class Drawer extends JPanel implements MouseListener {
                         if (checkForWinner(clickedCol, clickedRow, Color.red)) {
                             Board.winner = true;
                             Board.redWins++;
-                            restartGame();
+                            //restartGame();
                         }
                     }
                     else {
                         if (checkForWinner(clickedCol, clickedRow, Color.yellow)) {
                             Board.winner = true;
                             Board.yellowWins++;
-                            restartGame();
+                            //restartGame();
                         }
                     }
                     Board.turn++;
@@ -148,8 +150,11 @@ public class Drawer extends JPanel implements MouseListener {
         repaint();
     }
 
-    private void restartGame() {
 
+
+    public static void restartGame() {
+        clearFields();
+        Board.winner = false;
     }
 
     public boolean checkForWinner(int cc,int cr, Color c){

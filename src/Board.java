@@ -22,6 +22,7 @@ public class Board {
 
     public void drawBoard() {
         frame = new JFrame("mainBoard");
+        frame.addKeyListener(new KeyboardListen());
         frame.setSize(750, 600);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
