@@ -76,12 +76,27 @@ public class Drawer extends JPanel implements MouseListener {
                 graphics2D.setColor(Color.red);
             graphics2D.drawString(cellColor, PLAYERNAME_STRING_OFFSETX, TURN_STRING_OFFSETY);
 
-            final int GAMEEND_STRING_OFFSETX = 180;
-            final int GAMEEND_STRING_OFFSETY = 540;
-            graphics2D.setColor(Color.green);
-            graphics2D.drawString("Press Arrow UP to restart and start playing!", GAMEEND_STRING_OFFSETX, GAMEEND_STRING_OFFSETY);
+            printRestartMessage(graphics2D);
         }
 
+    }
+
+    private void printRestartMessage(Graphics2D graphics2D) {
+        final int GAMEEND_STRING_OFFSETX = 180;
+        final int GAMEEND_STRING_OFFSETY = 510;
+        final int GAMEEND_STRING_OFFSETY_PLAYER = GAMEEND_STRING_OFFSETY + 20;
+        final int GAMEEND_STRING_OFFSETX_PLAYER = 300;
+        graphics2D.setColor(Color.green);
+        graphics2D.drawString("Press Arrow UP to restart and start playing!", GAMEEND_STRING_OFFSETX, GAMEEND_STRING_OFFSETY);
+
+        if(Board.turn%2 == 0) {
+            graphics2D.setColor(Color.red);
+            graphics2D.drawString("Red starts!", GAMEEND_STRING_OFFSETX_PLAYER, GAMEEND_STRING_OFFSETY_PLAYER);
+        }
+        else {
+            graphics2D.setColor(Color.yellow);
+            graphics2D.drawString("Yellow starts!", GAMEEND_STRING_OFFSETX_PLAYER, GAMEEND_STRING_OFFSETY_PLAYER);
+        }
     }
 
     private void printLeaderBoard(Graphics2D graphics, int TURN_STRING_OFFSETX, int TURN_STRING_FONTSIZE) {
