@@ -13,6 +13,8 @@ public class Board {
     public static JFrame frame;
     public static boolean winner = false;
     public static int turn = 2;
+    public static int yellowWins = 0;
+    public static int redWins = 0;
 
     public Board() {
 
