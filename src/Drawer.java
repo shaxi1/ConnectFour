@@ -50,27 +50,31 @@ public class Drawer extends JPanel implements MouseListener {
             startX = 0;
         }
 
+        final int TURN_STRING_OFFSETX = 600;
+        final int TURN_STRING_OFFSETY = 20;
+        final int PLAYERNAME_STRING_OFFSETX = 680;
+        final int TURN_STRING_FONTSIZE = 16;
         graphics2D.setColor(new Color(255, 255, 255));
         if(!Board.winner)
             if(Board.turn%2 == 0) {
                 graphics2D.setColor(Color.red);
-                graphics2D.setFont(new Font("default", Font.BOLD, 16));
-                graphics2D.drawString("Red's Turn", 600, 20);
+                graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
+                graphics2D.drawString("Red's Turn", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
             }
             else {
                 graphics2D.setColor(Color.yellow);
-                graphics2D.setFont(new Font("default", Font.BOLD, 16));
-                graphics2D.drawString("Yellow's Turn", 600, 20);
+                graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
+                graphics2D.drawString("Yellow's Turn", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
             }
         else {
             graphics2D.setColor(Color.green);
-            graphics2D.setFont(new Font("default", Font.BOLD, 16));
-            graphics2D.drawString("WINNER - ", 600, 20);
+            graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
+            graphics2D.drawString("WINNER - ", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
             if(Board.turn%2 == 0)
                 graphics2D.setColor(Color.yellow);
             else
                 graphics2D.setColor(Color.red);
-            graphics2D.drawString(cellColor, 680, 20);
+            graphics2D.drawString(cellColor, PLAYERNAME_STRING_OFFSETX, TURN_STRING_OFFSETY);
         }
 
     }
