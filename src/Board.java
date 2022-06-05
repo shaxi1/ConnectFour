@@ -1,11 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
@@ -33,6 +29,9 @@ public class Board {
         // pokaz ramke
         frame.setVisible(true);
         frame.setResizable(false);
+        int screenHeight=Toolkit.getDefaultToolkit().getScreenSize().height;
+        int screenWidth=Toolkit.getDefaultToolkit().getScreenSize().width;
+        frame.setLocation((screenWidth - frame.getWidth()) / 2, (screenHeight - frame.getHeight()) / 2);
     }
 
 

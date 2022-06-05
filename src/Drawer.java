@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class Drawer extends JPanel implements MouseListener {
     int startX = 10;
@@ -172,82 +174,53 @@ public class Drawer extends JPanel implements MouseListener {
         Board.winner = false;
     }
 
-    public boolean checkForWinner(int cc,int cr, Color c){
-        int xStart = cc;
-        int count = 1;
-        //sprawdzenie w lewo
-        xStart--;
-        while(xStart>=0){
-            if(grid[cr][xStart].equals(c)){
+    public boolean checkForWinner(int currentColumn,int currentRow, Color c){
+        //sprawdzanie poziomo
+        int count = 0;
+        int xStart=currentColumn-3;
+        if(xStart<0)
+            xStart=0;
+        int xEnd=currentColumn+3;
+        if(xEnd>6)
+            xEnd=6;
+        while(xStart!=xEnd)
+        {
+            if(grid[currentRow][xStart].equals(c))
                 count++;
-            }else{
-                break;
-            }
-            if(count==4) {
-//                for(int i = count;i > 0;i--) {
-//                    grid[cr][xStart+i-1] = Color.black;
-//                }
-                return true;
-            }
-
-            xStart--;
-        }
-
-        //sprawdzenie w prawo
-        count = 1;
-        xStart = cc;
-        xStart++;
-        while(xStart<grid[0].length){
-
-            if(grid[cr][xStart].equals(c)){
-
-                count++;
-            }else{
-                break;
-            }
+            else
+                count=0;
             if(count==4)
+            {
                 return true;
-
+            }
             xStart++;
         }
-        //sprawdzenie w gore
-        count = 1;
-        int yStart = cr;
-        yStart--;
-        while(yStart>0){
-            if(grid[yStart][cc].equals(c)){
-                count++;
-            }else{
-                break;
-            }
-            if(count==4)
-                return true;
 
+        //sprawdzanie pionowo
+        count=0;
+        int yStart=currentRow+3;
+        if(yStart>5)
+            yStart=5;
+        int yEnd=currentRow-3;
+        if(yEnd<0)
+            yEnd=0;
+        while(yStart!=yEnd)
+        {
+            if(grid[yStart][currentColumn].equals(c))
+                count++;
+            else
+                count=0;
+            if(count==4)
+            {
+                return true;
+            }
             yStart--;
-        }
-
-        //sprawdzenie w dol
-        count = 1;
-        yStart = cr;
-        yStart++;
-        while(yStart<grid.length){
-
-            if(grid[yStart][cc].equals(c)){
-
-                count++;
-            }else{
-                break;
-            }
-            if(count==4)
-                return true;
-
-            yStart++;
         }
 
         //sprawdzenie lewej gory
         count = 1;
-        yStart = cr;
-        xStart = cc;
+        yStart = currentRow;
+        xStart = currentColumn;
         xStart--;
         yStart--;
         while(yStart>0 && xStart>0){
@@ -265,9 +238,9 @@ public class Drawer extends JPanel implements MouseListener {
 
         //sprawdzenie prawego dolu
         count = 1;
-        yStart = cr;
+        yStart = currentRow;
         yStart++;
-        xStart = cc;
+        xStart = currentColumn;
         xStart++;
         while(yStart<grid.length && xStart<grid.length){
 
@@ -286,8 +259,8 @@ public class Drawer extends JPanel implements MouseListener {
 
         //sprawdzenie lewego dolu
         count = 1;
-        yStart = cr;
-        xStart = cc;
+        yStart = currentRow;
+        xStart = currentColumn;
         xStart--;
         yStart++;
         while(yStart<grid.length && xStart>0){
@@ -305,9 +278,9 @@ public class Drawer extends JPanel implements MouseListener {
 
         //sprawdzenie prawej gory
         count = 1;
-        yStart = cr;
+        yStart = currentRow;
         yStart--;
-        xStart = cc;
+        xStart = currentColumn;
         xStart++;
         while(yStart>0 && xStart<grid.length){
 
