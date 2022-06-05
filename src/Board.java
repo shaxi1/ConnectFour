@@ -11,9 +11,9 @@ public class Board {
     public static int turn = 2;
     public static int yellowWins = 0;
     public static int redWins = 0;
+    public static boolean draw = false;
 
     public Board() {
-
     }
 
     public void drawBoard() {
