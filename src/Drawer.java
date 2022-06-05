@@ -57,7 +57,8 @@ public class Drawer extends JPanel implements MouseListener {
 
         printLeaderBoard((Graphics2D) graphics, TURN_STRING_OFFSETX, TURN_STRING_FONTSIZE);
 
-        if(!Board.winner)
+
+        if(!Board.winner){
             if(Board.turn%2 == 0) {
                 graphics2D.setColor(Color.red);
                 graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
@@ -68,6 +69,13 @@ public class Drawer extends JPanel implements MouseListener {
                 graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
                 graphics2D.drawString("Yellow's Turn", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
             }
+        }
+        else if(Board.draw) {
+            graphics2D.setColor(Color.green);
+            graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
+            graphics2D.drawString("DRAW", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
+            printRestartMessage(graphics2D);
+        }
         else {
             graphics2D.setColor(Color.green);
             graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
@@ -124,14 +132,14 @@ public class Drawer extends JPanel implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e)
     {
-        int x = e.getX(); //pobranie pozycji kursora
-        int y = e.getY();
+        int xPosition = e.getX(); //pobranie pozycji kursora
+        int yPosition = e.getY();
         if(!Board.winner) {
-            if(x<(CELL_SIZE*grid[0].length) && y<(CELL_SIZE*grid.length)){
-                int clickedRow = y/CELL_SIZE;
-                int clickedCol = x/CELL_SIZE;
+            if(xPosition<(CELL_SIZE*grid[0].length) && yPosition<(CELL_SIZE*grid.length)){
+                int clickedRow = yPosition/CELL_SIZE;
+                int clickedCol = xPosition/CELL_SIZE;
 
-                clickedRow = dropP(clickedCol); //sprawdzanie na jekiej wysokosci dac kolor
+                clickedRow = searchFreeSpot(clickedCol); //sprawdzanie na jekiej wysokosci dac kolor
 
                 if(clickedRow!=-1){
 
@@ -143,6 +151,10 @@ public class Drawer extends JPanel implements MouseListener {
                         cellColor = "Yellow";
                     }
                     if(Board.turn%2==0) {
+                        if(checkForDraw()){
+                            Board.winner = true;
+                            Board.draw = true;
+                        }
                         if (checkForWinner(clickedCol, clickedRow, Color.red)) {
                             Board.winner = true;
                             Board.redWins++;
@@ -150,6 +162,10 @@ public class Drawer extends JPanel implements MouseListener {
                         }
                     }
                     else {
+                        if(checkForDraw()){
+                            Board.winner = true;
+                            Board.draw = true;
+                        }
                         if (checkForWinner(clickedCol, clickedRow, Color.yellow)) {
                             Board.winner = true;
                             Board.yellowWins++;
@@ -160,58 +176,69 @@ public class Drawer extends JPanel implements MouseListener {
 //                    if(checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])){
 //                        Board.winner=true;
 
-
                     }
                 }
             }
         repaint();
     }
 
-
-
     public static void restartGame() {
         clearFields();
         Board.winner = false;
     }
 
-    public boolean checkForWinner(int currentColumn,int currentRow, Color c){
+    public boolean checkForDraw(){
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 6; j++){
+                if(grid[i][j].equals(Color.white)) return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkForWinner(int currentColumn,int currentRow, Color colour){
         //sprawdzanie poziomo
         int count = 0;
-        int xStart=currentColumn-3;
-        if(xStart<0)
-            xStart=0;
-        int xEnd=currentColumn+3;
-        if(xEnd>6)
-            xEnd=6;
+        int xStart = currentColumn-3;
+        if(xStart<0){
+            xStart = 0;
+        }
+        int xEnd = currentColumn+3;
+        if(xEnd>6){
+            xEnd = 6;
+        }
         while(xStart!=xEnd+1)
         {
-            if(grid[currentRow][xStart].equals(c))
+            if(grid[currentRow][xStart].equals(colour))
                 count++;
-            else
-                count=0;
-            if(count==4)
-            {
+            else{
+                count = 0;
+            }
+            if(count==4){
                 return true;
             }
             xStart++;
         }
 
         //sprawdzanie pionowo
-        count=0;
-        int yStart=currentRow+3;
-        if(yStart>5)
-            yStart=5;
-        int yEnd=currentRow-3;
-        if(yEnd<0)
-            yEnd=0;
+        count = 0;
+        int yStart = currentRow+3;
+        if(yStart>5){
+            yStart = 5;
+        }
+        int yEnd = currentRow-3;
+        if(yEnd<0){
+            yEnd = 0;
+        }
         while(yStart!=yEnd-1)
         {
-            if(grid[yStart][currentColumn].equals(c))
+            if(grid[yStart][currentColumn].equals(colour)){
                 count++;
-            else
-                count=0;
-            if(count==4)
-            {
+            }
+            else{
+                count = 0;
+            }
+            if(count==4){
                 return true;
             }
             yStart--;
@@ -224,14 +251,14 @@ public class Drawer extends JPanel implements MouseListener {
         xStart--;
         yStart--;
         while(yStart>0 && xStart>0){
-            if(grid[yStart][xStart].equals(c)){
+            if(grid[yStart][xStart].equals(colour)){
                 count++;
-            }else{
+            } else{
                 break;
             }
-            if(count==4)
+            if(count==4){
                 return true;
-
+            }
             yStart--;
             xStart--;
         }
@@ -243,16 +270,14 @@ public class Drawer extends JPanel implements MouseListener {
         xStart = currentColumn;
         xStart++;
         while(yStart<grid.length && xStart<grid.length){
-
-            if(grid[yStart][xStart].equals(c)){
-
+            if(grid[yStart][xStart].equals(colour)){
                 count++;
-            }else{
+            } else{
                 break;
             }
-            if(count==4)
+            if(count==4){
                 return true;
-
+            }
             yStart++;
             xStart++;
         }
@@ -264,14 +289,14 @@ public class Drawer extends JPanel implements MouseListener {
         xStart--;
         yStart++;
         while(yStart<grid.length && xStart>0){
-            if(grid[yStart][xStart].equals(c)){
+            if(grid[yStart][xStart].equals(colour)){
                 count++;
-            }else{
+            } else{
                 break;
             }
-            if(count==4)
+            if(count==4){
                 return true;
-
+            }
             yStart++;
             xStart--;
         }
@@ -283,35 +308,29 @@ public class Drawer extends JPanel implements MouseListener {
         xStart = currentColumn;
         xStart++;
         while(yStart>0 && xStart<grid.length){
-
-            if(grid[yStart][xStart].equals(c)){
-
+            if(grid[yStart][xStart].equals(colour)){
                 count++;
-            }else{
+            } else{
                 break;
             }
-            if(count==4)
+            if(count==4){
                 return true;
-
+            }
             yStart--;
             xStart++;
         }
-
         return false;
     }
-    public int dropP(int cc){
-        int cr = grid.length-1;
+    public int searchFreeSpot(int clickedColumn){
+        int clickedRow = grid.length-1;
 
-        while(cr>=0){
-
-            if(grid[cr][cc].equals(Color.white)){
-                return cr;
+        while(clickedRow>=0){
+            if(grid[clickedRow][clickedColumn].equals(Color.white)){
+                return clickedRow;
             }
-            cr--;
+            clickedRow--;
         }
-
         return -1;
-
     }
 
     @Override
