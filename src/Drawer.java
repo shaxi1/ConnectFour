@@ -187,7 +187,7 @@ public class Drawer extends JPanel implements MouseListener {
         Board.winner = false;
     }
 
-    public boolean checkForDraw(){
+    public static boolean checkForDraw(){
         for(int i = 0; i < 5; i++){
             for(int j = 0; j < 6; j++){
                 if(grid[i][j].equals(Color.white)) return false;
@@ -196,7 +196,7 @@ public class Drawer extends JPanel implements MouseListener {
         return true;
     }
 
-    public boolean checkForWinner(int currentColumn,int currentRow, Color colour){
+    public static boolean checkForWinner(int currentColumn, int currentRow, Color colour){
         //sprawdzanie poziomo
         int count = 0;
         int xStart = currentColumn-3;
@@ -250,7 +250,7 @@ public class Drawer extends JPanel implements MouseListener {
         xStart = currentColumn;
         xStart--;
         yStart--;
-        while(yStart>0 && xStart>0){
+        while(yStart>=0 && xStart>=0){
             if(grid[yStart][xStart].equals(colour)){
                 count++;
             } else{
@@ -269,7 +269,7 @@ public class Drawer extends JPanel implements MouseListener {
         yStart++;
         xStart = currentColumn;
         xStart++;
-        while(yStart<grid.length && xStart<grid.length){
+        while(yStart<grid.length && xStart<grid[0].length){
             if(grid[yStart][xStart].equals(colour)){
                 count++;
             } else{
@@ -288,7 +288,7 @@ public class Drawer extends JPanel implements MouseListener {
         xStart = currentColumn;
         xStart--;
         yStart++;
-        while(yStart<grid.length && xStart>0){
+        while(yStart<grid.length && xStart>=0){
             if(grid[yStart][xStart].equals(colour)){
                 count++;
             } else{
@@ -307,7 +307,7 @@ public class Drawer extends JPanel implements MouseListener {
         yStart--;
         xStart = currentColumn;
         xStart++;
-        while(yStart>0 && xStart<grid.length){
+        while(yStart>=0 && xStart<grid[0].length){
             if(grid[yStart][xStart].equals(colour)){
                 count++;
             } else{
