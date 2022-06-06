@@ -88,6 +88,7 @@ public class Drawer extends JPanel implements MouseListener {
 
             printRestartMessage(graphics2D);
         }
+        repaint();
 
     }
 
