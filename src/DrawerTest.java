@@ -99,7 +99,7 @@ class DrawerTest {
 
         for (int check = 0; check < 4; check++)
             Drawer.grid[3-check][check] = Color.orange;
-        boolean result = Drawer.checkForWinner(3, 3, Color.orange);
+        boolean result = Drawer.checkForWinner(0, 3, Color.orange);
         Assert.assertEquals(true, result);
     }
 }

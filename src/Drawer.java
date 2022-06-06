@@ -188,8 +188,8 @@ public class Drawer extends JPanel implements MouseListener {
     }
 
     public static boolean checkForDraw(){
-        for(int i = 0; i < 5; i++){
-            for(int j = 0; j < 6; j++){
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j].equals(Color.white)) return false;
             }
         }
