@@ -250,7 +250,7 @@ public class Drawer extends JPanel implements MouseListener {
         xStart = currentColumn;
         xStart--;
         yStart--;
-        while(yStart>=0 && xStart>=0){
+        while(yStart>=0 && xStart>0){
             if(grid[yStart][xStart].equals(colour)){
                 count++;
             } else{
@@ -288,7 +288,7 @@ public class Drawer extends JPanel implements MouseListener {
         xStart = currentColumn;
         xStart--;
         yStart++;
-        while(yStart<grid.length && xStart>=0){
+        while(yStart<grid.length && xStart>0){
             if(grid[yStart][xStart].equals(colour)){
                 count++;
             } else{
