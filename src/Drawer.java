@@ -9,11 +9,23 @@ public class Drawer extends JPanel implements MouseListener {
     int startX = 10;
     int startY = 10;
     String cellColor = "";
-    final int CELL_SIZE = 80;
+    static final int CELL_SIZE = 80;
 
     static final int ROWS = 6;
     static final int COLUMNS = 7;
     static Color[][] grid = new Color[ROWS][COLUMNS];
+
+    static final int TURN_STRING_OFFSETX = 600;
+    static final int TURN_STRING_OFFSETY = 20;
+    static final int PLAYERNAME_STRING_OFFSETX = 680;
+    static final int TURN_STRING_FONTSIZE = 16;
+    static final int LEADERBOARD_STRING_OFFSETY_YELLOW = 60;
+    static final int LEADERBOARD_STRING_OFFSETY_RED = LEADERBOARD_STRING_OFFSETY_YELLOW + 20;
+
+    static final int GAMEEND_STRING_OFFSETX = 180;
+    static final int GAMEEND_STRING_OFFSETY = 510;
+    static final int GAMEEND_STRING_OFFSETY_PLAYER = GAMEEND_STRING_OFFSETY + 20;
+    static final int GAMEEND_STRING_OFFSETX_PLAYER = 300;
 
     public Drawer(Dimension dimension) {
         setSize(dimension);
@@ -49,14 +61,9 @@ public class Drawer extends JPanel implements MouseListener {
             startX = 0;
         }
 
-        final int TURN_STRING_OFFSETX = 600;
-        final int TURN_STRING_OFFSETY = 20;
-        final int PLAYERNAME_STRING_OFFSETX = 680;
-        final int TURN_STRING_FONTSIZE = 16;
         graphics2D.setColor(new Color(255, 255, 255));
 
-        printLeaderBoard((Graphics2D) graphics, TURN_STRING_OFFSETX, TURN_STRING_FONTSIZE);
-
+        printLeaderBoard((Graphics2D) graphics);
 
         if(!Board.winner){
             if(Board.turn%2 == 0) {
@@ -93,10 +100,6 @@ public class Drawer extends JPanel implements MouseListener {
     }
 
     private void printRestartMessage(Graphics2D graphics2D) {
-        final int GAMEEND_STRING_OFFSETX = 180;
-        final int GAMEEND_STRING_OFFSETY = 510;
-        final int GAMEEND_STRING_OFFSETY_PLAYER = GAMEEND_STRING_OFFSETY + 20;
-        final int GAMEEND_STRING_OFFSETX_PLAYER = 300;
         graphics2D.setColor(Color.green);
         graphics2D.drawString("Press Arrow UP to restart and start playing!", GAMEEND_STRING_OFFSETX, GAMEEND_STRING_OFFSETY);
 
@@ -110,13 +113,11 @@ public class Drawer extends JPanel implements MouseListener {
         }
     }
 
-    private void printLeaderBoard(Graphics2D graphics, int TURN_STRING_OFFSETX, int TURN_STRING_FONTSIZE) {
-        final int LEADERBOARD_STRING_OFFSETY_YELLOW = 60;
-        final int LEADERBOARD_STRING_OFFSETY_RED = LEADERBOARD_STRING_OFFSETY_YELLOW + 20;
-
+    private void printLeaderBoard(Graphics2D graphics) {
         Graphics2D leaderBoard = graphics;
         leaderBoard.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+
         leaderBoard.setColor(new Color(255, 255, 255));
         leaderBoard.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
         leaderBoard.drawString("Yellow wins: " + Board.yellowWins, TURN_STRING_OFFSETX, LEADERBOARD_STRING_OFFSETY_YELLOW);
