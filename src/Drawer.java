@@ -23,6 +23,8 @@ public class Drawer extends JPanel implements MouseListener {
     static final int GAMEEND_STRING_OFFSETY = 510;
     static final int GAMEEND_STRING_OFFSETY_PLAYER = GAMEEND_STRING_OFFSETY + 20;
     static final int GAMEEND_STRING_OFFSETX_PLAYER = 300;
+    static final int GAMEEND_FIELDS_END_WIDTH_OFFSET = 178;
+    static final int GAMEEND_FIELDS_END_HEIGHT_OFFSET = 85;
 
     public Drawer(Dimension dimension) {
         setSize(dimension);
@@ -41,6 +43,8 @@ public class Drawer extends JPanel implements MouseListener {
 
         graphics2D.setColor(new Color(40, 42, 54));
         graphics2D.fillRect(0, 0, dimension.width, dimension.height);
+        graphics2D.setColor(new Color(28, 29, 38));
+        graphics2D.fillRect(0, 0, dimension.width- GAMEEND_FIELDS_END_WIDTH_OFFSET, dimension.height- GAMEEND_FIELDS_END_HEIGHT_OFFSET);
         startX = 0;
         startY = 0;
 
