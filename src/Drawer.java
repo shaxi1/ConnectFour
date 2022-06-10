@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Drawer extends JPanel implements MouseListener {
+public class Drawer extends JPanel {
     int startX = 10;
     int startY = 10;
-    String cellColor = "";
+    static String cellColor = "";
     static final int CELL_SIZE = 80;
 
     static final int ROWS = 6;
@@ -29,7 +29,8 @@ public class Drawer extends JPanel implements MouseListener {
     public Drawer(Dimension dimension) {
         setSize(dimension);
         setPreferredSize(dimension);
-        addMouseListener(this);
+        addMouseListener(new MouseListen());
+
 
         clearFields();
     }
@@ -96,7 +97,7 @@ public class Drawer extends JPanel implements MouseListener {
 
             printRestartMessage(graphics2D);
         }
-        repaint();
+            repaint();
 
     }
 
@@ -132,103 +133,19 @@ public class Drawer extends JPanel implements MouseListener {
                 grid[row][col] = Color.white;
     }
 
-    @Override
-    public void mousePressed(MouseEvent e)
-    {
-        int xPosition = e.getX(); //pobranie pozycji kursora
-        int yPosition = e.getY();
-        if(!Board.winner) {
-            if(xPosition<(CELL_SIZE*grid[0].length) && yPosition<(CELL_SIZE*grid.length)){
-                int clickedRow = yPosition/CELL_SIZE;
-                int clickedCol = xPosition/CELL_SIZE;
 
-                clickedRow = searchFreeSpot(clickedCol); //sprawdzanie na jekiej wysokosci dac kolor
-
-                if(clickedRow!=-1){
-
-                    if(Board.turn%2==0){
-                        grid[clickedRow][clickedCol]= Color.red; //ustawianie koloru
-                        cellColor = "RED";
-                    } else{
-                        grid[clickedRow][clickedCol]= Color.yellow;
-                        cellColor = "Yellow";
-                    }
-                    if(Board.turn%2==0) {
-                        if(checkForDraw()){
-                            Board.winner = true;
-                            Board.draw = true;
-                        }
-                        if (CheckForWinner.checkForWinner(clickedCol, clickedRow, Color.red)) {
-                            Board.winner = true;
-                            Board.redWins++;
-                            //restartGame();
-                        }
-                    }
-                    else {
-                        if(checkForDraw()){
-                            Board.winner = true;
-                            Board.draw = true;
-                        }
-                        if (CheckForWinner.checkForWinner(clickedCol, clickedRow, Color.yellow)) {
-                            Board.winner = true;
-                            Board.yellowWins++;
-                            //restartGame();
-                        }
-                    }
-                    Board.turn++;
-//                    if(checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])){
-//                        Board.winner=true;
-
-                    }
-                }
-            }
-        repaint();
-    }
 
     public static void restartGame() {
         clearFields();
         Board.winner = false;
     }
 
-    public static boolean checkForDraw(){
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid[0].length; j++){
-                if(grid[i][j].equals(Color.white)) return false;
-            }
-        }
-        return true;
+
+
+    public void drawerRepaint() {
+        repaint();
     }
 
-    public int searchFreeSpot(int clickedColumn){
-        int clickedRow = grid.length-1;
 
-        while(clickedRow>=0){
-            if(grid[clickedRow][clickedColumn].equals(Color.white)){
-                return clickedRow;
-            }
-            clickedRow--;
-        }
-        return -1;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 
 }

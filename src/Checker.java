@@ -1,9 +1,9 @@
 import java.awt.*;
 
-public class CheckForWinner {
+public class Checker {
     public static boolean checkForWinner(int currentColumn, int currentRow, Color colour) {
-        if (CheckForWinner.checkUpDownLeftRight(currentColumn, currentRow, colour)) return true;
-        if (CheckForWinner.checkDiagonally(currentColumn, currentRow, colour)) return true;
+        if (Checker.checkUpDownLeftRight(currentColumn, currentRow, colour)) return true;
+        if (Checker.checkDiagonally(currentColumn, currentRow, colour)) return true;
         return false;
     }
 
@@ -139,5 +139,26 @@ public class CheckForWinner {
             yStart--;
         }
         return false;
+    }
+
+    public static boolean checkForDraw(){
+        for(int i = 0; i < Drawer.grid.length; i++){
+            for(int j = 0; j < Drawer.grid[0].length; j++){
+                if(Drawer.grid[i][j].equals(Color.white)) return false;
+            }
+        }
+        return true;
+    }
+
+    public static int searchFreeSpot(int clickedColumn){
+        int clickedRow = Drawer.grid.length-1;
+
+        while(clickedRow>=0){
+            if(Drawer.grid[clickedRow][clickedColumn].equals(Color.white)){
+                return clickedRow;
+            }
+            clickedRow--;
+        }
+        return -1;
     }
 }
