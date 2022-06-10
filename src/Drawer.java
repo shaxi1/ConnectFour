@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -157,7 +158,7 @@ public class Drawer extends JPanel implements MouseListener {
                             Board.winner = true;
                             Board.draw = true;
                         }
-                        if (checkForWinner(clickedCol, clickedRow, Color.red)) {
+                        if (CheckForWinner.checkForWinner(clickedCol, clickedRow, Color.red)) {
                             Board.winner = true;
                             Board.redWins++;
                             //restartGame();
@@ -168,7 +169,7 @@ public class Drawer extends JPanel implements MouseListener {
                             Board.winner = true;
                             Board.draw = true;
                         }
-                        if (checkForWinner(clickedCol, clickedRow, Color.yellow)) {
+                        if (CheckForWinner.checkForWinner(clickedCol, clickedRow, Color.yellow)) {
                             Board.winner = true;
                             Board.yellowWins++;
                             //restartGame();
@@ -198,131 +199,6 @@ public class Drawer extends JPanel implements MouseListener {
         return true;
     }
 
-    public static boolean checkForWinner(int currentColumn, int currentRow, Color colour){
-        //sprawdzanie poziomo
-        int count = 0;
-        int xStart = currentColumn-3;
-        if(xStart<0){
-            xStart = 0;
-        }
-        int xEnd = currentColumn+3;
-        if(xEnd>6){
-            xEnd = 6;
-        }
-        while(xStart!=xEnd+1)
-        {
-            if(grid[currentRow][xStart].equals(colour))
-                count++;
-            else{
-                count = 0;
-            }
-            if(count==4){
-                return true;
-            }
-            xStart++;
-        }
-
-        //sprawdzanie pionowo
-        count = 0;
-        int yStart = currentRow+3;
-        if(yStart>5){
-            yStart = 5;
-        }
-        int yEnd = currentRow-3;
-        if(yEnd<0){
-            yEnd = 0;
-        }
-        while(yStart!=yEnd-1)
-        {
-            if(grid[yStart][currentColumn].equals(colour)){
-                count++;
-            }
-            else{
-                count = 0;
-            }
-            if(count==4){
-                return true;
-            }
-            yStart--;
-        }
-
-        //sprawdzenie lewej gory
-        count = 1;
-        yStart = currentRow;
-        xStart = currentColumn;
-        xStart--;
-        yStart--;
-        while(yStart>=0 && xStart>=0){
-            if(grid[yStart][xStart].equals(colour)){
-                count++;
-            } else{
-                break;
-            }
-            if(count==4){
-                return true;
-            }
-            yStart--;
-            xStart--;
-        }
-
-        //sprawdzenie prawego dolu
-        count = 1;
-        yStart = currentRow;
-        yStart++;
-        xStart = currentColumn;
-        xStart++;
-        while(yStart<grid.length && xStart<grid[0].length){
-            if(grid[yStart][xStart].equals(colour)){
-                count++;
-            } else{
-                break;
-            }
-            if(count==4){
-                return true;
-            }
-            yStart++;
-            xStart++;
-        }
-
-        //sprawdzenie lewego dolu
-        count = 1;
-        yStart = currentRow;
-        xStart = currentColumn;
-        xStart--;
-        yStart++;
-        while(yStart<grid.length && xStart>=0){
-            if(grid[yStart][xStart].equals(colour)){
-                count++;
-            } else{
-                break;
-            }
-            if(count==4){
-                return true;
-            }
-            yStart++;
-            xStart--;
-        }
-
-        //sprawdzenie prawej gory
-        count = 1;
-        yStart = currentRow;
-        yStart--;
-        xStart = currentColumn;
-        xStart++;
-        while(yStart>=0 && xStart<grid[0].length){
-            if(grid[yStart][xStart].equals(colour)){
-                count++;
-            } else{
-                break;
-            }
-            if(count==4){
-                return true;
-            }
-            yStart--;
-            xStart++;
-        }
-        return false;
-    }
     public int searchFreeSpot(int clickedColumn){
         int clickedRow = grid.length-1;
 
@@ -352,6 +228,148 @@ public class Drawer extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    public static class CheckForWinner implements Serializable {
+        public static boolean checkForWinner(int currentColumn, int currentRow, Color colour) {
+            if (Drawer.CheckForWinner.checkUpDownLeftRight(currentColumn, currentRow, colour)) return true;
+            if (Drawer.CheckForWinner.checkDiagonally(currentColumn, currentRow, colour)) return true;
+            return false;
+        }
+        private static boolean checkDiagonally(int currentColumn, int currentRow, Color colour) {
+            int xStart;
+            int count;
+
+            int yStart;
+
+            //sprawdzenie lewej gory
+            count = 1;
+            yStart = currentRow;
+            xStart = currentColumn;
+            xStart--;
+            yStart--;
+            while(yStart>=0 && xStart>=0){
+                if(grid[yStart][xStart].equals(colour)){
+                    count++;
+                } else{
+                    break;
+                }
+                if(count==4){
+                    return true;
+                }
+                yStart--;
+                xStart--;
+            }
+
+            //sprawdzenie prawego dolu
+            count = 1;
+            yStart = currentRow;
+            yStart++;
+            xStart = currentColumn;
+            xStart++;
+            while(yStart<grid.length && xStart<grid[0].length){
+                if(grid[yStart][xStart].equals(colour)){
+                    count++;
+                } else{
+                    break;
+                }
+                if(count==4){
+                    return true;
+                }
+                yStart++;
+                xStart++;
+            }
+
+            //sprawdzenie lewego dolu
+            count = 1;
+            yStart = currentRow;
+            xStart = currentColumn;
+            xStart--;
+            yStart++;
+            while(yStart<grid.length && xStart>=0){
+                if(grid[yStart][xStart].equals(colour)){
+                    count++;
+                } else{
+                    break;
+                }
+                if(count==4){
+                    return true;
+                }
+                yStart++;
+                xStart--;
+            }
+
+            //sprawdzenie prawej gory
+            count = 1;
+            yStart = currentRow;
+            yStart--;
+            xStart = currentColumn;
+            xStart++;
+            while(yStart>=0 && xStart<grid[0].length){
+                if(grid[yStart][xStart].equals(colour)){
+                    count++;
+                } else{
+                    break;
+                }
+                if(count==4){
+                    return true;
+                }
+                yStart--;
+                xStart++;
+            }
+            return false;
+        }
+
+        private static boolean checkUpDownLeftRight(int currentColumn, int currentRow, Color colour) {
+            //sprawdzanie poziomo
+            int count = 0;
+            int xStart = currentColumn -3;
+            if(xStart<0){
+                xStart = 0;
+            }
+            int xEnd = currentColumn +3;
+            if(xEnd>6){
+                xEnd = 6;
+            }
+            while(xStart!=xEnd+1)
+            {
+                if(grid[currentRow][xStart].equals(colour))
+                    count++;
+                else{
+                    count = 0;
+                }
+                if(count==4){
+                    return true;
+                }
+                xStart++;
+            }
+
+            //sprawdzanie pionowo
+            count = 0;
+            int yStart = currentRow +3;
+            if(yStart>5){
+                yStart = 5;
+            }
+            int yEnd = currentRow -3;
+            if(yEnd<0){
+                yEnd = 0;
+            }
+            while(yStart!=yEnd-1)
+            {
+                if(grid[yStart][currentColumn].equals(colour)){
+                    count++;
+                }
+                else{
+                    count = 0;
+                }
+                if(count==4){
+                    return true;
+                }
+                yStart--;
+            }
+            return false;
+        }
 
     }
 }
