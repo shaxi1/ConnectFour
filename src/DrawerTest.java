@@ -10,7 +10,7 @@ class DrawerTest {
         for (int row = 0; row < Drawer.grid.length; row++)
             for (int col = 0; col < Drawer.grid[0].length; col++)
                 Drawer.grid[row][col] = Color.white;
-        boolean result = Drawer.checkForDraw();
+        boolean result = Checker.checkForDraw();
         Assert.assertEquals(false, result);
     }
 
@@ -22,10 +22,10 @@ class DrawerTest {
         for (int row = 0; row < Drawer.grid.length; row++)
             for (int col = 0; col < Drawer.grid[0].length; col++)
                 Drawer.grid[row][col] = Color.black;
-        boolean result = Drawer.checkForDraw();
+        boolean result = Checker.checkForDraw();
         Assert.assertEquals(true, result);
         Drawer.grid[0][0] = Color.white;
-        result = Drawer.checkForDraw();
+        result = Checker.checkForDraw();
         Assert.assertEquals(false, result);
     }
 
@@ -40,7 +40,7 @@ class DrawerTest {
 
         for (int check = 0; check < 4; check++)
             Drawer.grid[0][check] = Color.black;
-        boolean result = Drawer.checkForWinner(0, 0, Color.black);
+        boolean result = Checker.checkForWinner(0, 0, Color.black);
         Assert.assertEquals(true, result);
 
     }
@@ -56,7 +56,7 @@ class DrawerTest {
 
         for (int check = 0; check < 4; check++)
             Drawer.grid[check][0] = Color.orange;
-        boolean result = Drawer.checkForWinner(0, 0, Color.orange);
+        boolean result = Checker.checkForWinner(0, 0, Color.orange);
         Assert.assertEquals(true, result);
     }
 
@@ -71,7 +71,7 @@ class DrawerTest {
 
         for (int check = 0; check < 4; check++)
             Drawer.grid[check][check] = Color.orange;
-        boolean result = Drawer.checkForWinner(0, 0, Color.orange);
+        boolean result = Checker.checkForWinner(0, 0, Color.orange);
         Assert.assertEquals(true, result);
     }
     //Sprawdzenie wygranej na ukos
@@ -85,7 +85,7 @@ class DrawerTest {
 
         for (int check = 0; check < 4; check++)
             Drawer.grid[3-check][3-check] = Color.orange;
-        boolean result = Drawer.checkForWinner(0, 0, Color.orange);
+        boolean result = Checker.checkForWinner(0, 0, Color.orange);
         Assert.assertEquals(true, result);
     }
     //Sprawdzenie wygranej na ukos
@@ -99,7 +99,7 @@ class DrawerTest {
 
         for (int check = 0; check < 4; check++)
             Drawer.grid[3-check][check] = Color.orange;
-        boolean result = Drawer.checkForWinner(0, 3, Color.orange);
+        boolean result = Checker.checkForWinner(0, 3, Color.orange);
         Assert.assertEquals(true, result);
     }
 }
