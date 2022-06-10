@@ -1,9 +1,7 @@
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
+
 
 public class Board {
     public static JFrame frame;
