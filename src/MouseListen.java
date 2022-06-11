@@ -17,45 +17,31 @@ public class MouseListen implements MouseListener {
 
                 if(clickedRow!=-1){
 
+                    if(Checker.checkForDraw()){
+                        Board.winner = true;
+                        Board.draw = true;
+                    }
+
+                    Drawer.grid[clickedRow][clickedCol] = Color.yellow;
+                    Drawer.cellColor = "Yellow";
+
                     if(Board.turn%2==0){
                         Drawer.grid[clickedRow][clickedCol]= Color.red; //ustawianie koloru
                         Drawer.cellColor = "RED";
-                    } else{
-                        Drawer.grid[clickedRow][clickedCol]= Color.yellow;
-                        Drawer.cellColor = "Yellow";
                     }
-                    if(Board.turn%2==0) {
-                        if(Checker.checkForDraw()){
-                            Board.winner = true;
-                            Board.draw = true;
-                        }
-                        if (Checker.checkForWinner(clickedCol, clickedRow, Color.red)) {
-                            Board.winner = true;
-                            Board.redWins++;
-                            //restartGame();
-                        }
+
+                    if (Checker.checkForWinner(clickedCol, clickedRow, Color.red)) {
+                        Board.winner = true;
+                        Board.redWins++;
                     }
-                    else {
-                        if(Checker.checkForDraw()){
-                            Board.winner = true;
-                            Board.draw = true;
-                        }
-                        if (Checker.checkForWinner(clickedCol, clickedRow, Color.yellow)) {
-                            Board.winner = true;
-                            Board.yellowWins++;
-                            //restartGame();
-                        }
+                    else if (Checker.checkForWinner(clickedCol, clickedRow, Color.yellow)) {
+                        Board.winner = true;
+                        Board.yellowWins++;
                     }
                     Board.turn++;
-//                    if(checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])){
-//                        Board.winner=true;
-
                 }
             }
         }
-        //repaint();
-
-
     }
 
     @Override

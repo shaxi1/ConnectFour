@@ -20,11 +20,10 @@ public class Checker {
         xStart--;
         yStart--;
         while(yStart>=0 && xStart>=0){
-            if(Drawer.grid[yStart][xStart].equals(colour)){
-                count++;
-            } else{
+            if(!Drawer.grid[yStart][xStart].equals(colour)){
                 break;
             }
+            count++;
             if(count==4){
                 return true;
             }
@@ -39,11 +38,10 @@ public class Checker {
         xStart = currentColumn;
         xStart++;
         while(yStart< Drawer.grid.length && xStart< Drawer.grid[0].length){
-            if(Drawer.grid[yStart][xStart].equals(colour)){
-                count++;
-            } else{
+            if(!Drawer.grid[yStart][xStart].equals(colour)){
                 break;
             }
+            count++;
             if(count==4){
                 return true;
             }
@@ -58,11 +56,10 @@ public class Checker {
         xStart--;
         yStart++;
         while(yStart< Drawer.grid.length && xStart>=0){
-            if(Drawer.grid[yStart][xStart].equals(colour)){
-                count++;
-            } else{
+            if(!Drawer.grid[yStart][xStart].equals(colour)){
                 break;
             }
+            count++;
             if(count==4){
                 return true;
             }
@@ -77,11 +74,10 @@ public class Checker {
         xStart = currentColumn;
         xStart++;
         while(yStart>=0 && xStart< Drawer.grid[0].length){
-            if(Drawer.grid[yStart][xStart].equals(colour)){
-                count++;
-            } else{
+            if(!Drawer.grid[yStart][xStart].equals(colour)){
                 break;
             }
+            count++;
             if(count==4){
                 return true;
             }

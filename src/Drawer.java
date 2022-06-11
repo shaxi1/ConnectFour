@@ -51,11 +51,9 @@ public class Drawer extends JPanel {
         // narysuj tabele z polami
         for (Color[] colors : grid) {
             for (int col = 0; col < grid[0].length; col++) {
-
                 graphics2D.setColor(colors[col]);
                 graphics2D.fillOval(startX, startY, CELL_SIZE-10, CELL_SIZE-10);
                 graphics2D.setColor(Color.black);
-                //graphics2D.drawRect(startX, startY, CELL_SIZE, CELL_SIZE);
                 startX += CELL_SIZE;
             }
             startY += CELL_SIZE;
@@ -67,14 +65,13 @@ public class Drawer extends JPanel {
         printLeaderBoard((Graphics2D) graphics);
 
         if(!Board.winner){
+            graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
             if(Board.turn%2 == 0) {
                 graphics2D.setColor(Color.red);
-                graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
                 graphics2D.drawString("Red's Turn", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
             }
             else {
                 graphics2D.setColor(Color.yellow);
-                graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
                 graphics2D.drawString("Yellow's Turn", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
             }
         }
@@ -88,15 +85,11 @@ public class Drawer extends JPanel {
             graphics2D.setColor(Color.green);
             graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
             graphics2D.drawString("WINNER - ", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
-            if(Board.turn%2 == 0)
-                graphics2D.setColor(Color.yellow);
-            else
-                graphics2D.setColor(Color.red);
+            graphics2D.setColor(getCurrentColor());
             graphics2D.drawString(cellColor, PLAYERNAME_STRING_OFFSETX, TURN_STRING_OFFSETY);
-
             printRestartMessage(graphics2D);
         }
-            repaint();
+        repaint();
 
     }
 
@@ -133,18 +126,16 @@ public class Drawer extends JPanel {
     }
 
 
-
     public static void restartGame() {
         clearFields();
         Board.winner = false;
     }
 
-
-
-    public void drawerRepaint() {
-        repaint();
+    public Color getCurrentColor(){
+        if(Board.turn%2 == 0) {
+            return Color.yellow;
+        }
+        return Color.red;
     }
-
-
 
 }
