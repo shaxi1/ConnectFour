@@ -11,8 +11,8 @@ public class Board {
     public static int redWins = 0;
     public static boolean draw = false;
     public static int GAPSIZE = 10;
-    public static int BOARD_WIDTH = (Drawer.COLUMNS-1) * Drawer.CELL_SIZE + (GAPSIZE * Drawer.COLUMNS)+Drawer.GAMEEND_FIELDS_END_WIDTH_OFFSET;
-    public static int BOARD_HEIGHT = Drawer.ROWS * Drawer.CELL_SIZE + (GAPSIZE * Drawer.ROWS)+Drawer.GAMEEND_FIELDS_END_HEIGHT_OFFSET;
+    public static int BOARD_WIDTH = (Drawer.COLUMNS) * Drawer.CELL_SIZE + (GAPSIZE * Drawer.COLUMNS) + Drawer.GAMEEND_FIELDS_END_WIDTH_OFFSET;
+    public static int BOARD_HEIGHT = Drawer.ROWS * Drawer.CELL_SIZE + (GAPSIZE * Drawer.ROWS) + Drawer.GAMEEND_FIELDS_END_HEIGHT_OFFSET;
 
     public Board() {
     }

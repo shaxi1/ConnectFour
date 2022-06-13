@@ -7,8 +7,8 @@ public class Drawer extends JPanel {
     static String cellColor = "";
     static final int CELL_SIZE = 80;
 
-    static final int ROWS = 10;
-    static final int COLUMNS = 10;
+    static final int ROWS = 8;
+    static final int COLUMNS = 4;
     static Color[][] grid = new Color[ROWS][COLUMNS];
 
     static final int TURN_STRING_OFFSETX = Board.BOARD_WIDTH - 160;
@@ -44,7 +44,7 @@ public class Drawer extends JPanel {
         graphics2D.setColor(new Color(40, 42, 54));
         graphics2D.fillRect(0, 0, dimension.width, dimension.height);
         graphics2D.setColor(new Color(28, 29, 38));
-        graphics2D.fillRect(0, 0, dimension.width- GAMEEND_FIELDS_END_WIDTH_OFFSET, dimension.height- GAMEEND_FIELDS_END_HEIGHT_OFFSET);
+        graphics2D.fillRect(0, 0, COLUMNS * CELL_SIZE, ROWS * CELL_SIZE);
         startX = 0;
         startY = 0;
 
