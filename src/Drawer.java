@@ -7,8 +7,8 @@ public class Drawer extends JPanel {
     static String cellColor = "";
     static final int CELL_SIZE = 80;
 
-    static final int ROWS = 8;
-    static final int COLUMNS = 4;
+    static final int ROWS = 6;
+    static final int COLUMNS = 7;
     static Color[][] grid = new Color[ROWS][COLUMNS];
 
     static final int TURN_STRING_OFFSETX = Board.BOARD_WIDTH - 160;
