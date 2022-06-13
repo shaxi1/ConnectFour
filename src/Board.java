@@ -10,6 +10,9 @@ public class Board {
     public static int yellowWins = 0;
     public static int redWins = 0;
     public static boolean draw = false;
+    public static int GAPSIZE = 10;
+    public static int BOARD_WIDTH = (Drawer.COLUMNS-1) * Drawer.CELL_SIZE + (GAPSIZE * Drawer.COLUMNS)+Drawer.GAMEEND_FIELDS_END_WIDTH_OFFSET;
+    public static int BOARD_HEIGHT = Drawer.ROWS * Drawer.CELL_SIZE + (GAPSIZE * Drawer.ROWS)+Drawer.GAMEEND_FIELDS_END_HEIGHT_OFFSET;
 
     public Board() {
     }
@@ -17,13 +20,13 @@ public class Board {
     public void drawBoard() {
         frame = new JFrame("mainBoard");
         frame.addKeyListener(new KeyboardListen());
-        frame.setSize(750, 600);
+        frame.setSize(BOARD_WIDTH, BOARD_HEIGHT);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
         // dodaj komponenty do ramki
         frame.add(new Drawer(frame.getSize()));
         // ustawienie wielkosci ramki, tak aby jej komponenty byly rowne im "PreferredSize"
-        frame.pack();
+        //frame.pack();
         // pokaz ramke
         frame.setVisible(true);
         frame.setResizable(false);

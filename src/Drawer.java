@@ -7,19 +7,19 @@ public class Drawer extends JPanel {
     static String cellColor = "";
     static final int CELL_SIZE = 80;
 
-    static final int ROWS = 4;
+    static final int ROWS = 10;
     static final int COLUMNS = 10;
     static Color[][] grid = new Color[ROWS][COLUMNS];
 
-    static final int TURN_STRING_OFFSETX = 600;
+    static final int TURN_STRING_OFFSETX = Board.BOARD_WIDTH - 160;
     static final int TURN_STRING_OFFSETY = 20;
-    static final int PLAYERNAME_STRING_OFFSETX = 680;
+    static final int PLAYERNAME_STRING_OFFSETX = TURN_STRING_OFFSETX + CELL_SIZE;
     static final int TURN_STRING_FONTSIZE = 16;
     static final int LEADERBOARD_STRING_OFFSETY_YELLOW = 60;
     static final int LEADERBOARD_STRING_OFFSETY_RED = LEADERBOARD_STRING_OFFSETY_YELLOW + 20;
 
     static final int GAMEEND_STRING_OFFSETX = 180;
-    static final int GAMEEND_STRING_OFFSETY = 510;
+    static final int GAMEEND_STRING_OFFSETY = Board.BOARD_HEIGHT - CELL_SIZE;
     static final int GAMEEND_STRING_OFFSETY_PLAYER = GAMEEND_STRING_OFFSETY + 20;
     static final int GAMEEND_STRING_OFFSETX_PLAYER = 300;
     static final int GAMEEND_FIELDS_END_WIDTH_OFFSET = 178;
