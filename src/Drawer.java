@@ -11,15 +11,15 @@ public class Drawer extends JPanel {
     static final int COLUMNS = 7;
     static Color[][] grid = new Color[ROWS][COLUMNS];
 
-    static final int TURN_STRING_OFFSETX = 600;
+    static final int TURN_STRING_OFFSETX = Board.BOARD_WIDTH - 160;
     static final int TURN_STRING_OFFSETY = 20;
-    static final int PLAYERNAME_STRING_OFFSETX = 680;
+    static final int PLAYERNAME_STRING_OFFSETX = TURN_STRING_OFFSETX + CELL_SIZE;
     static final int TURN_STRING_FONTSIZE = 16;
     static final int LEADERBOARD_STRING_OFFSETY_YELLOW = 60;
     static final int LEADERBOARD_STRING_OFFSETY_RED = LEADERBOARD_STRING_OFFSETY_YELLOW + 20;
 
     static final int GAMEEND_STRING_OFFSETX = 180;
-    static final int GAMEEND_STRING_OFFSETY = 510;
+    static final int GAMEEND_STRING_OFFSETY = Board.BOARD_HEIGHT - CELL_SIZE;
     static final int GAMEEND_STRING_OFFSETY_PLAYER = GAMEEND_STRING_OFFSETY + 20;
     static final int GAMEEND_STRING_OFFSETX_PLAYER = 300;
     static final int GAMEEND_FIELDS_END_WIDTH_OFFSET = 178;
@@ -44,7 +44,7 @@ public class Drawer extends JPanel {
         graphics2D.setColor(new Color(40, 42, 54));
         graphics2D.fillRect(0, 0, dimension.width, dimension.height);
         graphics2D.setColor(new Color(28, 29, 38));
-        graphics2D.fillRect(0, 0, dimension.width- GAMEEND_FIELDS_END_WIDTH_OFFSET, dimension.height- GAMEEND_FIELDS_END_HEIGHT_OFFSET);
+        graphics2D.fillRect(0, 0, COLUMNS * CELL_SIZE, ROWS * CELL_SIZE);
         startX = 0;
         startY = 0;
 
@@ -64,7 +64,13 @@ public class Drawer extends JPanel {
 
         printLeaderBoard((Graphics2D) graphics);
 
-        if(!Board.winner){
+        if(Board.draw) {
+            graphics2D.setColor(Color.green);
+            graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
+            graphics2D.drawString("DRAW", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
+            printRestartMessage(graphics2D);
+        }
+        else if(!Board.winner){
             graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
             if(Board.turn%2 == 0) {
                 graphics2D.setColor(Color.red);
@@ -74,12 +80,6 @@ public class Drawer extends JPanel {
                 graphics2D.setColor(Color.yellow);
                 graphics2D.drawString("Yellow's Turn", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
             }
-        }
-        else if(Board.draw) {
-            graphics2D.setColor(Color.green);
-            graphics2D.setFont(new Font("default", Font.BOLD, TURN_STRING_FONTSIZE));
-            graphics2D.drawString("DRAW", TURN_STRING_OFFSETX, TURN_STRING_OFFSETY);
-            printRestartMessage(graphics2D);
         }
         else {
             graphics2D.setColor(Color.green);
@@ -129,6 +129,7 @@ public class Drawer extends JPanel {
     public static void restartGame() {
         clearFields();
         Board.winner = false;
+        Board.draw = false;
     }
 
     public Color getCurrentColor(){

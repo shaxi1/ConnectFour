@@ -95,8 +95,8 @@ public class Checker {
             xStart = 0;
         }
         int xEnd = currentColumn +3;
-        if(xEnd>6){
-            xEnd = 6;
+        if(xEnd>Drawer.COLUMNS-1){
+            xEnd = Drawer.COLUMNS-1;
         }
         while(xStart!=xEnd+1)
         {
@@ -114,8 +114,8 @@ public class Checker {
         //sprawdzanie pionowo
         count = 0;
         int yStart = currentRow +3;
-        if(yStart>5){
-            yStart = 5;
+        if(yStart>Drawer.ROWS-1){
+            yStart = Drawer.ROWS-1;
         }
         int yEnd = currentRow -3;
         if(yEnd<0){

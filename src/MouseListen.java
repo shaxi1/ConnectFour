@@ -14,13 +14,8 @@ public class MouseListen implements MouseListener {
                 int clickedCol = xPosition/Drawer.CELL_SIZE;
 
                 clickedRow = Checker.searchFreeSpot(clickedCol); //sprawdzanie na jekiej wysokosci dac kolor
+                if(clickedRow!=-1) {
 
-                if(clickedRow!=-1){
-
-                    if(Checker.checkForDraw()){
-                        Board.winner = true;
-                        Board.draw = true;
-                    }
 
                     Drawer.grid[clickedRow][clickedCol] = Color.yellow;
                     Drawer.cellColor = "Yellow";
@@ -30,6 +25,11 @@ public class MouseListen implements MouseListener {
                         Drawer.cellColor = "RED";
                     }
 
+
+                    if(Checker.checkForDraw()){
+                        Board.winner = true;
+                        Board.draw = true;
+                    }
                     if (Checker.checkForWinner(clickedCol, clickedRow, Color.red)) {
                         Board.winner = true;
                         Board.redWins++;
