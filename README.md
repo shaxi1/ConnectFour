@@ -1,5 +1,7 @@
 # ConnectFour
 
+Classic game - Connect Four, implementated in Java.
+
 ### Gameplay
 ![gameplay](./img/game1.PNG)
 
